@@ -203,4 +203,4 @@ Drugi katalog nazwiemy **fretboard-visualization** i umieścimy go w katalogu **
 
 W katalogu **modules** będziemy umieszać w przyszłości również inne większe, podzielne funkcjonalności. Można to traktować jako katalog grupujący małe aplikacje. Wewnątrz tych modułów zgrupujemy sobie pliki po ich przeznaczeniu. Komponenty do katalogu **components**, rzeczy związane z komunikacją pomiędzy komponentami do katalogu **providers**, komponenty połączone za pomocą **Context API** do katalogu **containers** oraz całą logikę dotyczącą konkretnej funkcjonalności do katalogu **models**. 
 
-**4. Szkielet rozwiązania.**
+**4. Wybieramy fragment funkcjonalności - granulacja pracy.**
