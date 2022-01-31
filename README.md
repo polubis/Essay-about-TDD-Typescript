@@ -20,6 +20,7 @@
 1. Testy jednostkowe.
  
 ```ts
+// sum.ts
 // Prosta funkcja sumująca parametry
 const sum = (...args: number[]) => args.reduce((acc, nmb) => acc + nmb, 0);
 
@@ -66,5 +67,57 @@ it('assigns theme', () => {
 
   expect(background).toBeTruthy();
   expect(color).toBeTruthy();
+});
+```
+
+2. Testy integracyjne.
+
+```ts
+// user.ts
+interface User {
+  id: number;
+  username: string;
+}
+
+// user.model.ts
+class UserModel implements User {
+  constructor(public id: number, public username: string) {}
+
+  isValid = (): boolean => {
+    return this.id > 0 && this.username.length > 8;
+  };
+}
+
+// user.service.ts
+class UserService {
+  updateUser = (user: User): Promise<User> | never => {
+    const userModel = new UserModel(user.id, user.username);
+
+    if (!userModel.isValid()) {
+      throw new Error("Invalid model");
+    }
+
+    return fetch("/user", { method: "post", body: JSON.stringify(user) }).then(
+      (res) => res.json()
+    );
+  };
+}
+
+// user.service.test.ts
+it("throws an error for invalid model", () => {
+  const userService = new UserService();
+  expect(() => userService.updateUser({ username: "", id: -1 })).toThrow();
+});
+
+it("goes through whole update procedure", async () => {
+  const VALID_USER: User = { username: "Tomasz1994", id: 0 };
+  fetch.mockResponseOnce(JSON.stringify(VALID_USER));
+  const userService = new UserService();
+
+  const user = await userService.updateUser(VALID_USER);
+
+  expect(fetch).toHaveBeenCalledTimes(1);
+  expect(fetch).toHaveBeenCalledWith("/user", JSON.stringify(VALID_USER));
+  expect(user).toEqual(VALID_USER);
 });
 ```
