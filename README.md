@@ -79,7 +79,7 @@ it('assigns theme', () => {
 });
 ```
 
-2. Testy integracyjne.
+###. Testy integracyjne.
 
 Testujemy większy fragment funkcjonalności. Porównując do przykładu z życia testujemy po kolei _Wyrobienie ciasta oraz jego wyrost, Przygotowanie składników, Stworzenie pizzy_.
 
