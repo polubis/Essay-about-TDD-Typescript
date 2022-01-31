@@ -50,7 +50,7 @@ const Button = ({ children, theme }: ButtonProps) => {
 };
 ```
 
-![alt text](https://raw.githubusercontent.com/username/projectname/branch/path/to/img.png)
+![Przycisk](https://www.fibaro.com/en/wp-content/uploads/sites/3/2017/02/color-bt-red.png)
 
 ```ts
 // Button.test.tsx
