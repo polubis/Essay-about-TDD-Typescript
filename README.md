@@ -17,9 +17,9 @@
 
   Test to nic innego jak weryfikacja czy nasz kod działa według zdefiniowanych wymagań. Przykładowo zakładamy, że funkcja `sum()` powinna dodawać do siebie podane parametry i zwracać wynik.
  
-1. Test jednostkowy.
+1. Testy jednostkowe.
 
-a) 
+1a. Testowanie prostej funkcji.
  
 ```ts
 // Implementacja
