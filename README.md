@@ -16,7 +16,11 @@
 ## Przykład testu
 
   Test to nic innego jak weryfikacja czy nasz kod działa według zdefiniowanych wymagań. Przykładowo zakładamy, że funkcja `sum()` powinna dodawać do siebie podane parametry i zwracać wynik.
-  
+ 
+1. Test jednostkowy.
+
+a) 
+ 
 ```ts
 // Implementacja
 const sum = (...args: number[]) => args.reduce((acc, nmb) => acc + nmb, 0);
