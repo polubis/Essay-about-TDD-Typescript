@@ -135,13 +135,14 @@ it("goes through whole update procedure", async () => {
 });
 ```
 
+Testujemy wykorzystanie modułu z walidacją w serwisie.
 
 ### Testy e2e
 
 Testujemy całość. Porównując do przykładu z życia testujemy _Stworzenie pizzy oraz jej smak_, ale nie w przyjaznym środowisku tylko już podczas ruchu - pora obiadowa.
 
 ```ts
- it('Allows user to create account', function() {
+ it('allows user to create account', () => {
    var page = 'https://www.some-page.com/account-creation'
    
    cy.page(page)
