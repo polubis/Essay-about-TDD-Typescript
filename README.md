@@ -23,7 +23,7 @@
 // Prosta funkcja sumująca parametry
 const sum = (...args: number[]) => args.reduce((acc, nmb) => acc + nmb, 0);
 
-// Testujemy poprawność działania funkcji sum()
+// Test jednostkowy sprawdzający poprawność działania funkcji sum()
 it('returns the sum of parameters', () => {
   expect(sum(3,45,2)).toBe(50)
 });
