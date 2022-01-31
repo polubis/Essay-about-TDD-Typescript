@@ -154,3 +154,33 @@ Testujemy całość. Porównując do przykładu z życia testujemy _Stworzenie p
    cy.url().should('include', 'creating');
  })
 ```
+
+## Test Driven Development
+
+Jest to podejście, w którym najpierw powinniśmy:
+1. Napisać wymagania w dowolnej formie.
+2. Określić zakres funkcjonalności, która mamy aktualnie implementować (nie całość naraz).
+3. **Faza red** Napisać testy, które nie przechodzą (są czerwone).
+4. **Faza green** Poprawić kod tak, aby testy, które napisaliśmy działały.
+5. **Faza refactor** Zrobić refactor kodu.
+6. Jeżeli po 5 kroku testy się popsuły to wracamy do kroku 4.
+7. Przejść do następnego fragmentu całej funkcjonalności.
+
+![Przycisk](https://s3.amazonaws.com/mokacoding/2018-09-18-red-green-refactor.jpg)
+
+## TDD w praktyce
+
+Aby przykład był trochę inny zajmiemy się implementacja prostej apki do wizualizacji dźwięków na gryfie gitary. Jako użytkownik powinniśmy móc:
+
+a) Wyświetlić dźwięki gitary.
+b) Mieć możliwość pokazania dźwięków tylko w jednym kolorze.
+c) Pokazać wartość oktawy przy dźwięku bądź ją schować.
+d) Zmienić typ notacji z # na b.
+
+
+Aktualnie jesteśmy na kroku **1. Napisać wymagania w dowolnej formie**.
+
+Teraz powinniśmy określić zakres. To czym w pierwszej kolejności warto się zająć to punkt **a) Wyświetlić dźwięki gitary.**. Reszta funkcjonalności jest zbudowana na wizualizacji więc warto od tego zacząć - mineliśmy krok **2. Określić zakres funkcjonalności, która mamy aktualnie implementować**.
+
+
+
