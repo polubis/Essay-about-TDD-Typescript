@@ -15,9 +15,13 @@
 
 ## Przykłady testów
 
-  Test to nic innego jak weryfikacja czy nasz kod działa według zdefiniowanych wymagań. Przykładowo zakładamy, że funkcja `sum()` powinna dodawać do siebie podane parametry i zwracać wynik. Zazwyczaj piszemy testy do gotowego już kodu.
- 
-1. Testy jednostkowe.
+  Test to nic innego jak weryfikacja czy nasz kod działa według zdefiniowanych wymagań. Czasami wymagania znamy wcześniej, a czasami dochodzimy do nich podczas pracy nad kodem.
+  
+### Testy jednostkowe
+
+Pod uwagę bierzemy tylko jedno konkretne zachowanie kodu. Porównując to do przykładu z początku testujemy tylko wilgotność ciasta lub tylko jego rozmiar.
+
+1. Funkcja `sum()` powinna dodawać do siebie podane parametry i zwracać wynik. Zazwyczaj piszemy testy do gotowego już kodu.
  
 ```ts
 // sum.ts
@@ -28,7 +32,12 @@ const sum = (...args: number[]) => args.reduce((acc, nmb) => acc + nmb, 0);
 it('returns the sum of parameters', () => {
   expect(sum(3,45,2)).toBe(50)
 });
+// W tym teście testujemy tylko i wyłącznie zwracany rezultat
 ```
+
+2. Komponent Button powinien przypisać motyw oraz wyświetlić dowolny podany kontent wewnątrz.
+
+![Przycisk](https://www.fibaro.com/en/wp-content/uploads/sites/3/2017/02/color-bt-red.png)
 
 ```ts
 // Button.tsx
@@ -51,15 +60,15 @@ const Button = ({ children, theme }: ButtonProps) => {
 };
 ```
 
-![Przycisk](https://www.fibaro.com/en/wp-content/uploads/sites/3/2017/02/color-bt-red.png)
-
 ```ts
 // Button.test.tsx
+// Testowanie wyświetlania zawartości
 it('displays content', () => {
   render(<Button theme={ButtonTheme.Primary}>Content</Button>);
   expect(screen.getByText(/content/)).toBeInTheDocument();
 });
 
+// Testowanie motywu
 it('assigns theme', () => {
   render(<Button theme={ButtonTheme.Primary}>Content</Button>);
 
@@ -71,6 +80,8 @@ it('assigns theme', () => {
 ```
 
 2. Testy integracyjne.
+
+Testujemy większy fragment funkcjonalności. Porównując do przykładu z życia testujemy po kolei _Wyrobienie ciasta oraz jego wyrost, Przygotowanie składników, Stworzenie pizzy_.
 
 ```ts
 // user.ts
