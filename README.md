@@ -160,27 +160,34 @@ Testujemy całość. Porównując do przykładu z życia testujemy _Stworzenie p
 Jest to podejście, w którym najpierw powinniśmy:
 1. Napisać wymagania w dowolnej formie.
 2. Określić zakres funkcjonalności, która mamy aktualnie implementować (nie całość naraz).
-3. **Faza red** Napisać testy, które nie przechodzą (są czerwone).
-4. **Faza green** Poprawić kod tak, aby testy, które napisaliśmy działały.
-5. **Faza refactor** Zrobić refactor kodu.
-6. Jeżeli po 5 kroku testy się popsuły to wracamy do kroku 4.
-7. Przejść do następnego fragmentu całej funkcjonalności.
+3. Projektujemy strukturę plików, interfejsy. 
+4. **Faza red** Napisać testy, które nie przechodzą (są czerwone).
+5. **Faza green** Poprawić kod tak, aby testy, które napisaliśmy działały.
+6. **Faza refactor** Zrobić refactor kodu.
+7. Jeżeli po 5 kroku testy się popsuły to wracamy do kroku 4.
+8. Przejść do następnego fragmentu całej funkcjonalności.
 
 ![Przycisk](https://s3.amazonaws.com/mokacoding/2018-09-18-red-green-refactor.jpg)
 
+Oficjalnie tylko kroki **4,5,6** należą do **TDD**. Jednak postanowiłem umieścić je wewnątrz całego procesu developmentu, aby pokazać, w którym miejscu powinniśmy korzystać z TDD.
+
 ## TDD w praktyce
 
-Aby przykład był trochę inny zajmiemy się implementacja prostej apki do wizualizacji dźwięków na gryfie gitary. Jako użytkownik powinniśmy móc:
+Aby przykład był trochę inny zajmiemy się implementacja prostej apki do wizualizacji dźwięków na gryfie gitary. Wykonujemy powyższe kroki.
+
+**1. Napisać wymagania w dowolnej formie**.
+
+Jako użytkownik powinniśmy móc:
 
 - Wyświetlić dźwięki gitary.
 - Mieć możliwość pokazania dźwięków tylko w jednym kolorze.
 - Pokazać wartość oktawy przy dźwięku bądź ją schować.
 - Zmienić typ notacji z # na b.
 
+**2. Określić zakres funkcjonalności, która mamy aktualnie implementować**.
 
-Aktualnie jesteśmy na kroku **1. Napisać wymagania w dowolnej formie**.
+To czym w pierwszej kolejności warto się zająć to punkt **Wyświetlić dźwięki gitary.** Reszta funkcjonalności jest zbudowana na wizualizacji więc warto od tego zacząć.
 
-Teraz powinniśmy określić zakres. To czym w pierwszej kolejności warto się zająć to punkt **a) Wyświetlić dźwięki gitary.**. Reszta funkcjonalności jest zbudowana na wizualizacji więc warto od tego zacząć - mineliśmy krok **2. Określić zakres funkcjonalności, która mamy aktualnie implementować**.
-
+**3. Projektujemy strukturę plików, interfejsy.**
 
 
