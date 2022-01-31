@@ -13,19 +13,22 @@
 
   Gdyby pominąć faze testowania może się zdarzyć, że klient dostanie złej jakości produkt. 
 
-## Przykład testu
+## Przykłady testów
 
-  Test to nic innego jak weryfikacja czy nasz kod działa według zdefiniowanych wymagań. Przykładowo zakładamy, że funkcja `sum()` powinna dodawać do siebie podane parametry i zwracać wynik.
+  Test to nic innego jak weryfikacja czy nasz kod działa według zdefiniowanych wymagań. Przykładowo zakładamy, że funkcja `sum()` powinna dodawać do siebie podane parametry i zwracać wynik. Zazwyczaj piszemy testy do gotowego już kodu.
  
 1. Testy jednostkowe.
-
-1a. Testowanie prostej funkcji.
  
 ```ts
-// Implementacja
+// Prosta funkcja sumująca parametry
 const sum = (...args: number[]) => args.reduce((acc, nmb) => acc + nmb, 0);
-// Test
+
+// Testujemy poprawność działania funkcji sum()
 it('returns the sum of parameters', () => {
   expect(sum(3,45,2)).toBe(50)
 });
+```
+
+```ts
+
 ```
