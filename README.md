@@ -160,7 +160,7 @@ Testujemy całość. Porównując do przykładu z życia testujemy _Stworzenie p
 Jest to podejście, w którym najpierw powinniśmy:
 1. Napisać wymagania w dowolnej formie.
 2. Określić zakres funkcjonalności, która mamy aktualnie implementować (nie całość naraz).
-3. Projektujemy strukturę plików, interfejsy, moduły, api. 
+3. Szkielet rozwiązania. 
 4. **Faza red** Napisać testy, które nie przechodzą (są czerwone).
 5. **Faza green** Poprawić kod tak, aby testy, które napisaliśmy działały.
 6. **Faza refactor** Zrobić refactor kodu.
@@ -188,8 +188,14 @@ TODO: Tu wstawić design
 
 **2. Określić zakres funkcjonalności, która mamy aktualnie implementować**.
 
-To czym w pierwszej kolejności warto się zająć to punkt **Wyświetlić dźwięki gitary.** Reszta funkcjonalności jest zbudowana na wizualizacji więc warto od tego zacząć.
+To czym w pierwszej kolejności warto się zająć to punkt **Wyświetlić dźwięki gitary.** Reszta funkcjonalności jest zbudowana na wizualizacji więc warto od tego zaczniemy.
 
-**3. Projektujemy strukturę plików, interfejsy, moduły, api.**
+**3. Szkielet rozwiązania.**
 
+Pisząc aplikacje warto rozważyć rozdzielenie domeny biznesowej od prezentacji. Przykładowo zamiast kodować logikę w komponentach **React**, można zaimplementować jej w warstwie abstrakcji, która jest po za biblioteką. Takie rozwiązanie sprawi możliwość łatwego otestowania najważniejszej części funkcjonalności czyli logiki po za frameworkiem.
 
+Dodatkowo zyskujemy też możliwość łatwego przejścia na inną technologie, użycie logiki oraz zrozumiały podział na logikę i prezentacje. 
+
+Zatem stworzymy katalog o nazwie **music-core**. Znajdzie się tam wszystko co dotyczy teorii muzyki, liczenia skal, dźwięków, ...itd. Będzie to w przyszłości idealny kandydat na standalone bibliotekę.
+
+Drugi katalog nazwiemy **fretboard-visualization** i umieścimy go w katalogu **modules**. Będzie to katalog zawierający komunikację pomiędzy kompontentami za pomocą kontekstu, obsługę stanu oraz wszystkie komponenty prezentacyjne dotyczące tej funkcjonalności. W katalogu **modules** będziemy umieszać w przyszłości również inne większe, podzielne funkcjonalności. Można to traktować jako katalog grupujący małe aplikacje.
