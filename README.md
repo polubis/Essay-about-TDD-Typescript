@@ -160,7 +160,7 @@ Testujemy całość. Porównując do przykładu z życia testujemy _Stworzenie p
 Jest to podejście, w którym najpierw powinniśmy:
 1. Napisać wymagania w dowolnej formie.
 2. Określić zakres funkcjonalności, która mamy aktualnie implementować (nie całość naraz).
-3. Projektujemy strukturę plików, interfejsy. 
+3. Projektujemy strukturę plików, interfejsy, moduły, api. 
 4. **Faza red** Napisać testy, które nie przechodzą (są czerwone).
 5. **Faza green** Poprawić kod tak, aby testy, które napisaliśmy działały.
 6. **Faza refactor** Zrobić refactor kodu.
@@ -169,7 +169,7 @@ Jest to podejście, w którym najpierw powinniśmy:
 
 ![Przycisk](https://s3.amazonaws.com/mokacoding/2018-09-18-red-green-refactor.jpg)
 
-Oficjalnie tylko kroki **4,5,6** należą do **TDD**. Jednak postanowiłem umieścić je wewnątrz całego procesu developmentu, aby pokazać, w którym miejscu powinniśmy korzystać z TDD.
+Oficjalnie tylko kroki **4,5,6** należą do **TDD**. Jednak postanowiłem umieścić je wewnątrz całego procesu developmentu, aby pokazać, w którym miejscu powinniśmy korzystać z TDD. Również powinniśmy się trzymać korków **4,5,6** wszystkie pozostałe sprawdzają się u mnie. Dla każdego może to być troche inny proces.
 
 ## TDD w praktyce
 
@@ -184,10 +184,12 @@ Jako użytkownik powinniśmy móc:
 - Pokazać wartość oktawy przy dźwięku bądź ją schować.
 - Zmienić typ notacji z # na b.
 
+TODO: Tu wstawić design
+
 **2. Określić zakres funkcjonalności, która mamy aktualnie implementować**.
 
 To czym w pierwszej kolejności warto się zająć to punkt **Wyświetlić dźwięki gitary.** Reszta funkcjonalności jest zbudowana na wizualizacji więc warto od tego zacząć.
 
-**3. Projektujemy strukturę plików, interfejsy.**
+**3. Projektujemy strukturę plików, interfejsy, moduły, api.**
 
 
