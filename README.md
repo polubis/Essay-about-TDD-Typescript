@@ -172,10 +172,10 @@ Jest to podejście, w którym najpierw powinniśmy:
 
 Aby przykład był trochę inny zajmiemy się implementacja prostej apki do wizualizacji dźwięków na gryfie gitary. Jako użytkownik powinniśmy móc:
 
-a) Wyświetlić dźwięki gitary.
-b) Mieć możliwość pokazania dźwięków tylko w jednym kolorze.
-c) Pokazać wartość oktawy przy dźwięku bądź ją schować.
-d) Zmienić typ notacji z # na b.
+- Wyświetlić dźwięki gitary.
+- Mieć możliwość pokazania dźwięków tylko w jednym kolorze.
+- Pokazać wartość oktawy przy dźwięku bądź ją schować.
+- Zmienić typ notacji z # na b.
 
 
 Aktualnie jesteśmy na kroku **1. Napisać wymagania w dowolnej formie**.
