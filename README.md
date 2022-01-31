@@ -138,4 +138,4 @@ it("goes through whole update procedure", async () => {
 
 ### Testy e2e
 
-Testujemy całość. Porównując do przykładu z życia testujemy _Stworzenie pizzy oraz jej smak_. 
+Testujemy całość. Porównując do przykładu z życia testujemy _Stworzenie pizzy oraz jej smak_, ale nie w przyjaznym środowisku tylko już podczas ruchu - pora obiadowa.
