@@ -176,7 +176,7 @@ Oficjalnie tylko kroki **5,6,7** należą do **TDD**. Jednak postanowiłem umie�
 
 Aby przykład był trochę inny zajmiemy się implementacja prostej apki do wizualizacji dźwięków na gryfie gitary. Wykonujemy powyższe kroki.
 
-### **1. Napisać wymagania w dowolnej formie**.
+### 1. Napisać wymagania w dowolnej formie
 
 Jako użytkownik powinniśmy móc:
 
@@ -187,11 +187,11 @@ Jako użytkownik powinniśmy móc:
 
 TODO: Tu wstawić design
 
-### **2. Określić zakres funkcjonalności, która mamy aktualnie implementować**.
+### 2. Określić zakres funkcjonalności, która mamy aktualnie implementować
 
 To czym w pierwszej kolejności warto się zająć to punkt **Wyświetlić dźwięki gitary.** Reszta funkcjonalności jest zbudowana na wizualizacji więc warto od tego zaczniemy.
 
-### **3. Szkielet rozwiązania.**
+### 3. Szkielet rozwiązania
 
 Pisząc aplikacje warto rozważyć rozdzielenie domeny biznesowej od prezentacji. Przykładowo zamiast kodować logikę w komponentach **React**, można zaimplementować jej w warstwie abstrakcji, która jest po za **React**. Takie rozwiązanie sprawi możliwość łatwego otestowania najważniejszej części funkcjonalności czyli logiki po za frameworkiem.
 
@@ -203,6 +203,10 @@ Drugi katalog nazwiemy **fretboard-visualization** i umieścimy go w katalogu **
 
 W katalogu **modules** będziemy umieszać w przyszłości również inne większe, podzielne funkcjonalności. Można to traktować jako katalog grupujący małe aplikacje. Wewnątrz tych modułów zgrupujemy sobie pliki po ich przeznaczeniu. Komponenty do katalogu **components**, rzeczy związane z komunikacją pomiędzy komponentami do katalogu **providers**, komponenty połączone za pomocą **Context API** do katalogu **containers** oraz całą logikę dotyczącą konkretnej funkcjonalności do katalogu **models**. 
 
-### **4. Wybieramy fragment funkcjonalności - granulacja pracy.**
+### 4. Wybieramy fragment funkcjonalności - granulacja pracy
 
 Warto zacząć od rzeczy najmniejszych i stopniowo iść do góry. Zaczniemy od implementacji przycisku pozwalającego na przedstawienie dźwięków.
+
+### 5. **Faza red** Stworzyć interfejsy, napisać testy, które nie przechodzą (są czerwone)
+
+
