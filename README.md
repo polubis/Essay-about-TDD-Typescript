@@ -139,3 +139,17 @@ it("goes through whole update procedure", async () => {
 ### Testy e2e
 
 Testujemy całość. Porównując do przykładu z życia testujemy _Stworzenie pizzy oraz jej smak_, ale nie w przyjaznym środowisku tylko już podczas ruchu - pora obiadowa.
+
+```ts
+ it('Allows user to create account', function() {
+   var page = 'https://www.some-page.com/account-creation'
+   
+   cy.page(page)
+   cy.get('input[type="email"]').type('mail.com').should('have.value','mail.com');
+   cy.contains('Invalid mail!');
+   cy.get('input[type="email"]').type('piotr@gmail.com').should('have.value','piotr@gmail.com');
+   cy.get('Invalid mail!').should('not.exists');
+   cy.get('button[type="submit"]').click();
+   cy.url().should('include', 'creating');
+ })
+```
