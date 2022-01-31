@@ -17,6 +17,8 @@
 
   Test to nic innego jak weryfikacja czy nasz kod działa według zdefiniowanych wymagań. Przykładowo zakładamy, że funkcja `sum()` powinna dodawać do siebie podane parametry i zwracać wynik. Zazwyczaj piszemy testy do gotowego już kodu.
  
+1. Testy jednostkowe.
+ 
 ```ts
 // Prosta funkcja sumująca parametry
 const sum = (...args: number[]) => args.reduce((acc, nmb) => acc + nmb, 0);
@@ -46,9 +48,11 @@ const Button = ({ children, theme }: ButtonProps) => {
     </button>
   );
 };
+```
 
 https://www.fibaro.com/en/wp-content/uploads/sites/3/2017/02/color-bt-red.png
 
+```ts
 // Button.test.tsx
 it('displays content', () => {
   render(<Button theme={ButtonTheme.Primary}>Content</Button>);
