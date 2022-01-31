@@ -13,6 +13,8 @@
 
   Gdyby pominąć faze testowania może się zdarzyć, że klient dostanie złej jakości produkt. 
 
+  Cały proces kończy się pojawieniem się pizzy na talerzu klienta oraz jej spróbowaniem.
+
 ## Przykłady testów
 
   Test to nic innego jak weryfikacja czy nasz kod działa według zdefiniowanych wymagań. Czasami wymagania znamy wcześniej, a czasami dochodzimy do nich podczas pracy nad kodem.
@@ -79,7 +81,7 @@ it('assigns theme', () => {
 });
 ```
 
-###. Testy integracyjne.
+### Testy integracyjne
 
 Testujemy większy fragment funkcjonalności. Porównując do przykładu z życia testujemy po kolei _Wyrobienie ciasta oraz jego wyrost, Przygotowanie składników, Stworzenie pizzy_.
 
@@ -132,3 +134,8 @@ it("goes through whole update procedure", async () => {
   expect(user).toEqual(VALID_USER);
 });
 ```
+
+
+### Testy e2e
+
+Testujemy całość. Porównując do przykładu z życia testujemy _Stworzenie pizzy oraz jej smak_. 
