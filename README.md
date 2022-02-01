@@ -185,6 +185,8 @@ Jako użytkownik powinniśmy móc:
 - Pokazać wartość oktawy przy dźwięku bądź ją schować.
 - Zmienić typ notacji z # na b.
 
+Design:
+
 ![image](https://user-images.githubusercontent.com/22937810/151938836-3658e938-22db-4206-8561-8d0aeec13d6f.png)
 
 ### 2. Określić zakres funkcjonalności, która mamy aktualnie implementować
