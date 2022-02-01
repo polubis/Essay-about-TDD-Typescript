@@ -224,14 +224,14 @@ const NOTE_OCTAVE = [0,1,2,3,4,5,6,7,8] as const;
 type NotePosition = typeof NOTE_POSITIONS[number];
 type NoteOctave - typeof NOTE_OCTAVE[number];
 
-interface NoteButtonComponentProps {
+export interface NoteButtonComponentProps {
   className?: string;
   position: NotePosition;
   octave?: NoteOctave; 
   name: string;
   singleColor?: boolean;
   hidden?: boolean;
-  onClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 ```
 
@@ -252,19 +252,24 @@ W tym momencie mamy "zaspokojenie" zgodności typów. Napiszmy wszystkie scenari
 // NoteButtonComponent.test.tsx
 
 describe('NoteButtonComponent', () => {
-  it('assigns note color');
-  it('makes button hidden');
   it('displays note name');
   it('displays note octave')
   it('calls parent function with note position attribute');
-  it('assigns color different than note color');
 })
 ```
 
-Jak widać w chwili obecnej mamy 5 rzeczy wartych przetestowania. Skupiamy się na tym, aby nazwy testów nie nawiązywały do szczegółów implementacyjnych. Przykładowo:
+Jak widać w chwili obecnej mamy 3 rzeczy wartych przetestowania. Skupiamy się na tym, aby nazwy testów nie nawiązywały do szczegółów implementacyjnych. Przykładowo:
 ```ts
 it('assigns note color if singleColored property is falsy') // jeżeli usuniemy potrzebe użycia flagi singleColored to będziemy musieli zmienić również nazwę testów. Większe utrzymanie
 ```
 
+Dodatkowo testowanie aspektów wizualnych nie ma sensu. Przykładowo nie powinniśmy sprawdzać czy zostały przypisane jakieś style. To się bardzo często zmienia, a takie testy mają tendencje do wywoływania "false negatives" czyli sytuacji, w której pomimo tego, że na interfejsie wszystko wygląda ok to test nie przechodzi z powodu różniącej się implementacji.
 
+Teraz implementacja testów:
+
+```ts
+// NoteButtonComponent.test.tsx
+
+
+```
 
