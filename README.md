@@ -214,4 +214,57 @@ Warto zacząć od rzeczy najmniejszych i stopniowo iść do góry. Zaczniemy od 
 
 ### 5. **Faza red** Stworzyć interfejsy, napisać testy, które nie przechodzą (są czerwone)
 
+Nasz **NoteButtonComponent** będzie miał następujący interfejs:
+
+```ts
+// NoteButtonComponent.tsx
+const NOTE_POSITIONS = [0,1,2,3,4,5,6,7,8,9,10,11] as const;
+const NOTE_OCTAVE = [0,1,2,3,4,5,6,7,8] as const;
+
+type NotePosition = typeof NOTE_POSITIONS[number];
+type NoteOctave - typeof NOTE_OCTAVE[number];
+
+interface NoteButtonComponentProps {
+  className?: string;
+  position: NotePosition;
+  octave?: NoteOctave; 
+  name: string;
+  singleColor?: boolean;
+  hidden?: boolean;
+  onClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+}
+```
+
+Następnie dodajemy nie zaimplementowany komponent i rzucamy wyjątek:
+
+```ts
+// NoteButtonComponent.tsx
+const NoteButtonComponent = ({}: NoteButtonComponentProps) => {
+  throw new Error('Not implemented yet');
+}
+
+export { NoteButtonComponent } 
+```
+
+W tym momencie mamy "zaspokojenie" zgodności typów. Napiszmy wszystkie scenariusze testowe według wymagań. Narazie nie implementujmy testów.
+
+```ts
+// NoteButtonComponent.test.tsx
+
+describe('NoteButtonComponent', () => {
+  it('assigns note color');
+  it('makes button hidden');
+  it('displays note name');
+  it('displays note octave')
+  it('calls parent function with note position attribute');
+  it('assigns color different than note color');
+})
+```
+
+Jak widać w chwili obecnej mamy 5 rzeczy wartych przetestowania. Skupiamy się na tym, aby nazwy testów nie nawiązywały do szczegółów implementacyjnych. Przykładowo:
+```ts
+it('assigns note color if singleColored property is falsy') // jeżeli usuniemy potrzebe użycia flagi singleColored to będziemy musieli zmienić również nazwę testów. Większe utrzymanie
+```
+
+
 
