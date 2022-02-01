@@ -185,7 +185,7 @@ Jako użytkownik powinniśmy móc:
 - Pokazać wartość oktawy przy dźwięku bądź ją schować.
 - Zmienić typ notacji z # na b.
 
-TODO: Tu wstawić design
+![image](https://user-images.githubusercontent.com/22937810/151938836-3658e938-22db-4206-8561-8d0aeec13d6f.png)
 
 ### 2. Określić zakres funkcjonalności, która mamy aktualnie implementować
 
@@ -206,6 +206,9 @@ W katalogu **modules** będziemy umieszać w przyszłości również inne więks
 ### 4. Wybieramy fragment funkcjonalności - granulacja pracy
 
 Warto zacząć od rzeczy najmniejszych i stopniowo iść do góry. Zaczniemy od implementacji przycisku pozwalającego na przedstawienie dźwięków.
+
+![image](https://user-images.githubusercontent.com/22937810/151938883-27a6eeec-0f39-4564-936e-c577f29dbd0c.png)
+![image](https://user-images.githubusercontent.com/22937810/151938928-f72a560d-8b36-4b9e-93a4-be89cf130368.png)
 
 ### 5. **Faza red** Stworzyć interfejsy, napisać testy, które nie przechodzą (są czerwone)
 
