@@ -1,5 +1,22 @@
 # Essay-about-TDD-Typescript
 
+## Co implementujemy?
+
+Aby przykład był trochę inny zajmiemy się implementacja prostej apki do wizualizacji dźwięków na gryfie gitary. Wykonujemy powyższe kroki.
+
+### 1. Napisać wymagania w dowolnej formie
+
+Jako użytkownik powinniśmy móc:
+
+- Wyświetlić dźwięki gitary.
+- Mieć możliwość pokazania dźwięków tylko w jednym kolorze.
+- Pokazać wartość oktawy przy dźwięku bądź ją schować.
+- Zmienić typ notacji z # na b.
+
+Design:
+
+![image](https://user-images.githubusercontent.com/22937810/151938836-3658e938-22db-4206-8561-8d0aeec13d6f.png)
+
 ## Kod 
 
 https://github.com/polubis/music-app/tree/Release-1.5/apps/jam-jam
@@ -185,24 +202,27 @@ Oficjalnie tylko kroki **5,6,7** należą do **TDD**. Jednak postanowiłem umie�
 
 ## TDD w praktyce
 
-Aby przykład był trochę inny zajmiemy się implementacja prostej apki do wizualizacji dźwięków na gryfie gitary. Wykonujemy powyższe kroki.
+// Dzial o narzedziach i technologiach
+// Dodac inny podzial testow
+// TODO: O tym kiedy testowac ze spy i wywolaniem
+/// Arange act asset, mocki, stuby,
+// Tylko public api test
+// O tym ze spojne testowanie nie tylo pokazuje miejsce i przyczyne, ale oszczedza czas na debjugowaniu
+// Co warto testowac i czy zawsze warto
+// Piramida testow
+// Wrzucic info na temat pokrycia i co tym myslec
+// Poprawne nazewnictow
+// Testowanie szczegolow implementacyjnch
+// false negatives, false positives
+/// zrobic prezke
 
-### 1. Napisać wymagania w dowolnej formie
+### 1. Napisać wymagania w dowolnej formie.
 
-Jako użytkownik powinniśmy móc:
-
-- Wyświetlić dźwięki gitary.
-- Mieć możliwość pokazania dźwięków tylko w jednym kolorze.
-- Pokazać wartość oktawy przy dźwięku bądź ją schować.
-- Zmienić typ notacji z # na b.
-
-Design:
-
-![image](https://user-images.githubusercontent.com/22937810/151938836-3658e938-22db-4206-8561-8d0aeec13d6f.png)
+Na samym początku dokumentu.
 
 ### 2. Określić zakres funkcjonalności, która mamy aktualnie implementować
 
-To czym w pierwszej kolejności warto się zająć to punkt **Wyświetlić dźwięki gitary.** Reszta funkcjonalności jest zbudowana na wizualizacji więc warto od tego zaczniemy.
+To czym w pierwszej kolejności warto się zająć to punkt **Wyświetlić dźwięki gitary.** Reszta funkcjonalności jest zbudowana na wizualizacji więc od tego zaczniemy.
 
 ### 3. Szkielet rozwiązania
 
@@ -210,7 +230,7 @@ Pisząc aplikacje warto rozważyć rozdzielenie domeny biznesowej od prezentacji
 
 Dodatkowo zyskujemy też możliwość łatwego przejścia na inną technologie, użycie logiki oraz zrozumiały podział na logikę i prezentacje. 
 
-Zatem stworzymy katalog o nazwie **music-core**. Znajdzie się tam wszystko co dotyczy teorii muzyki, liczenia skal, dźwięków, ...itd. Będzie to w przyszłości idealny kandydat na standalone bibliotekę.
+Zatem stworzymy katalog o nazwie **music-core**. Znajdzie się tam wszystko co dotyczy teorii muzyki, liczenia skal, dźwięków, ...itd. Będzie to w przyszłości idealny kandydat na  bibliotekę.
 
 Drugi katalog nazwiemy **fretboard-visualization** i umieścimy go w katalogu **modules**. Będzie to katalog zawierający komunikację pomiędzy kompontentami za pomocą kontekstu, obsługę stanu oraz wszystkie komponenty prezentacyjne dotyczące tej funkcjonalności. 
 
@@ -269,12 +289,10 @@ describe('NoteButtonComponent', () => {
 })
 ```
 
-Jak widać w chwili obecnej mamy 3 rzeczy wartych przetestowania. Skupiamy się na tym, aby nazwy testów nie nawiązywały do szczegółów implementacyjnych. Przykładowo:
+Jak widać mamy 3 rzeczy warte przetestowania. Skupiamy się na tym, aby nazwy testów nie nawiązywały do szczegółów implementacyjnych (nie zawsze o tym później). Przykładowo:
 ```ts
 it('assigns note color if singleColored property is falsy') // jeżeli usuniemy potrzebe użycia flagi singleColored to będziemy musieli zmienić również nazwę testów. Większe utrzymanie
 ```
-
-Dodatkowo testowanie aspektów wizualnych nie ma sensu. Przykładowo nie powinniśmy sprawdzać czy zostały przypisane jakieś style. To się bardzo często zmienia, a takie testy mają tendencje do wywoływania "false negatives" czyli sytuacji, w której pomimo tego, że na interfejsie wszystko wygląda ok to test nie przechodzi z powodu różniącej się implementacji.
 
 Teraz implementacja testów:
 
@@ -400,7 +418,7 @@ Dodaliśmy implementacje, która sprawia, że wcześniej napisane testy zaczynaj
 ### 7. **Faza refactor** - zrobić refactor kodu.
 
 W tym kroku można modyfikować kod, wydzielać dodatkowe funkcje, komponenty dla czytelności, lepszego performance, ...itd.
-Jednocześnie mając informacje zwortna z działających testów czy wszystko działa poprawnie. Poniższej przykład:
+Oczywiście robimy to mając informacje zwortną z działających w tle testów. Poniższej przykład:
 
 ![Example of TDD](https://user-images.githubusercontent.com/22937810/152313514-f98c597f-32bc-4db3-ab56-e7d8eb2adfc9.gif)
 
@@ -413,3 +431,7 @@ Testy działają więc idziemy dalej.
 U nas to nie wszystko i powinniśmy wrócić do kroku 4. Potrzebujemy zaimplementować jeszcze wiele funkcjonalności. Ich kod można zobaczyć na tym branchu:
 
 https://github.com/polubis/music-app/tree/Release-1.5/apps/jam-jam
+
+Proces tworzenia jednej większej znajdziesz tutaj:
+
+https://github.com/polubis/Essay-about-TDD-Typescript/blob/main/2%20-%20TDD%20na%20wiekszym%20przykladzie.md
