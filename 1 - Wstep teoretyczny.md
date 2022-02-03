@@ -17,7 +17,7 @@ Design:
 
 ## Kod 
 
-https://github.com/polubis/music-app/tree/Release-1.5/apps/jam-jam
+https://github.com/polubis/music-app/pull/36/files
 
 ## Przykład z życia
 
