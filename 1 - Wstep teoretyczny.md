@@ -6,10 +6,10 @@ Aby przykład był trochę inny zajmiemy się implementacją prostej apki do wiz
 
 Jako użytkownik powinniśmy móc:
 
-- Wyświetlić dźwięki gitary.
-- Mieć możliwość pokazania dźwięków tylko w jednym kolorze.
-- Pokazać wartość oktawy przy dźwięku bądź ją schować.
-- Zmienić typ notacji z # na b.
+- Wyświetlić dźwięki gitary
+- Mieć możliwość pokazania dźwięków tylko w jednym kolorze
+- Pokazać wartość oktawy przy dźwięku bądź ją schować
+- Zmienić typ notacji z # na b
 
 Design:
 
