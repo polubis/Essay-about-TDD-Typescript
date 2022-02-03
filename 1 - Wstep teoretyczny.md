@@ -2,7 +2,7 @@
 
 ## Co implementujemy?
 
-Aby przykład był trochę inny zajmiemy się implementacja prostej apki do wizualizacji dźwięków na gryfie gitary. Wykonujemy powyższe kroki.
+Aby przykład był trochę inny zajmiemy się implementacją prostej apki do wizualizacji dźwięków na gryfie gitary. Wykonujemy powyższe kroki.
 
 ### 1. Napisać wymagania w dowolnej formie
 
