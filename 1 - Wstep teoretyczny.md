@@ -1,5 +1,9 @@
 # Essay-about-TDD-Typescript
 
+## (Opcjonalnie) Krótko o teorii muzyki
+
+https://github.com/polubis/Essay-about-TDD-Typescript/blob/main/TEORIA_MUZYKI.md
+
 ## Co implementujemy?
 
 Aby przykład był trochę inny zajmiemy się implementacją prostej apki do wizualizacji dźwięków na gryfie gitary.
@@ -14,8 +18,6 @@ Jako użytkownik powinniśmy móc:
 Design:
 
 ![image](https://user-images.githubusercontent.com/22937810/151938836-3658e938-22db-4206-8561-8d0aeec13d6f.png)
-
-TODO: Wstaw lnik do slownika z pojeciami z muzyki
 
 ## Kod 
 
