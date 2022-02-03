@@ -15,7 +15,7 @@ Design:
 
 ![image](https://user-images.githubusercontent.com/22937810/151938836-3658e938-22db-4206-8561-8d0aeec13d6f.png)
 
-_Jeżeli masz problem ze zrozumieniem części terminów odsyłam do linku: TODO: WSTAW LINK_
+TODO: Wstaw lnik do slownika z pojeciami z muzyki
 
 ## Kod 
 
