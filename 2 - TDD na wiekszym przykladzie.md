@@ -1,5 +1,7 @@
 ## TDD na większym przykładzie
 
+### Implementacja krok po kroku
+
 Przejdziemy przez implementacje fragmentu modułu **music-core/guitarNote**, o którym wspominaliśmy we wcześniejszym rozdziale gdy rozważaliśmy nad szkieletem rozwiązania. Opiszemy tylko implementację tego modułu ze względu na złożoność całego rozwiązania. Reszte można zobaczyć sobie w linku z rozdziału 1.
 
 Zaczniemy od najmniejszej składowej każdego instrumentu czyli dźwięku. Na początek modele. Cześć interfejsów przenieśliśmy z **NoteButtonComponent**, a teraz importujemy je tam z pliku **music-core/definitions.ts**
@@ -557,6 +559,189 @@ describe("GuitarNote", () => {
 });
 ```
 
-Teraz fix implementacji i koniec. 
+Teraz fix implementacji i koniec. Potrzebujemy **type guard**, aby zweryfikować czy symbol jest **NotePosition**, **SharpNoteName**, **BmollNoteName**. Będą to trzy funkcje.
+Również potrzebujemy testów. 
 
+```ts
+// utils.ts
+export const isNotePositionSymbol = (
+  symbol: NoteSymbol
+): symbol is NotePosition => {
+  return true;
+};
 
+export const isSharpNoteNameSymbol = (
+  symbol: NoteSymbol
+): symbol is SharpNoteName => {
+  return true;
+};
+
+export const isBmollNoteNameSymbol = (
+  symbol: NoteSymbol
+): symbol is BmollNoteName => {
+  return true;
+};
+
+// utils.test.ts
+import {
+  getNextPosition,
+  isSharpNoteNameSymbol,
+  isNotePositionSymbol,
+  isBmollNoteNameSymbol,
+} from "./utils";
+
+describe("getNextPosition()", () => {
+  it("gets next position", () => {
+    expect(getNextPosition(0)).toBe(1);
+  });
+
+  it("when last position resets to first one", () => {
+    expect(getNextPosition(11)).toBe(0);
+  });
+});
+
+describe("isNotePositionSymbol()", () => {
+  it("detects symbol", () => {
+    expect(isNotePositionSymbol(0)).toBeTruthy();
+    expect(isNotePositionSymbol(1)).toBeTruthy();
+    expect(isNotePositionSymbol("C")).toBeFalsy();
+    expect(isNotePositionSymbol("C#")).toBeFalsy();
+    expect(isNotePositionSymbol("Db")).toBeFalsy();
+  });
+});
+
+describe("isSharpNoteNameSymbol()", () => {
+  it("detects symbol", () => {
+    expect(isSharpNoteNameSymbol("C#")).toBeTruthy();
+    expect(isSharpNoteNameSymbol("C")).toBeTruthy();
+    expect(isSharpNoteNameSymbol(0)).toBeFalsy();
+    expect(isSharpNoteNameSymbol(1)).toBeFalsy();
+    expect(isSharpNoteNameSymbol("Db")).toBeFalsy();
+  });
+});
+
+describe("isBmollNoteNameSymbol()", () => {
+  it("detects symbol", () => {
+    expect(isBmollNoteNameSymbol("Bb")).toBeTruthy();
+    expect(isBmollNoteNameSymbol("C")).toBeTruthy();
+    expect(isBmollNoteNameSymbol(0)).toBeFalsy();
+    expect(isBmollNoteNameSymbol(1)).toBeFalsy();
+    expect(isBmollNoteNameSymbol("C#")).toBeFalsy();
+  });
+});
+```
+
+Teraz implementacja guardów.
+
+```ts
+// utils.ts
+
+import {
+  BmollNoteName,
+  BMOLL_NAMES,
+  NotePosition,
+  NoteSymbol,
+  POSITIONS,
+  SharpNoteName,
+  SHARP_NAMES,
+} from "./definitions";
+
+export const isNotePositionSymbol = (
+  symbol: NoteSymbol
+): symbol is NotePosition => {
+  return typeof symbol === "number";
+};
+
+export const isSharpNoteNameSymbol = (
+  symbol: NoteSymbol
+): symbol is SharpNoteName => {
+  return SHARP_NAMES.includes(symbol as SharpNoteName);
+};
+
+export const isBmollNoteNameSymbol = (
+  symbol: NoteSymbol
+): symbol is BmollNoteName => {
+  return BMOLL_NAMES.includes(symbol as BmollNoteName);
+};
+
+export const getNextPosition = (position: NotePosition): NotePosition => {
+  const nextPosition = position + 1;
+  return nextPosition === POSITIONS.length ? 0 : (nextPosition as NotePosition);
+};
+```
+
+Została poprawka w **guitarNote**.
+
+```ts
+// guitarNote.ts
+
+import { error } from "dk";
+import {
+  Note,
+  NotePosition,
+  NoteOctave,
+  NoteId,
+  SHARP_NAMES,
+  NoteSymbol,
+  BMOLL_NAMES,
+} from "./definitions";
+import {
+  isBmollNoteNameSymbol,
+  isNotePositionSymbol,
+  isSharpNoteNameSymbol,
+} from "./utils";
+
+export class GuitarNote implements Note {
+  sharpName!: string;
+  bmollName!: string;
+  position!: NotePosition;
+
+  constructor(
+    public symbol: NoteSymbol,
+    public octave: NoteOctave,
+    public id: NoteId
+  ) {
+    this._initialize();
+  }
+
+  private _initialize = (): void => {
+    const { symbol } = this;
+
+    if (isNotePositionSymbol(symbol)) {
+      this.sharpName = SHARP_NAMES[symbol];
+      this.bmollName = BMOLL_NAMES[symbol];
+      this.position = symbol;
+      return;
+    }
+
+    if (isSharpNoteNameSymbol(symbol)) {
+      const position = SHARP_NAMES.indexOf(symbol) as NotePosition;
+      this.sharpName = symbol;
+      this.bmollName = BMOLL_NAMES[position];
+      return;
+    }
+
+    if (isBmollNoteNameSymbol(symbol)) {
+      const position = BMOLL_NAMES.indexOf(symbol) as NotePosition;
+      this.bmollName = symbol;
+      this.sharpName = SHARP_NAMES[position];
+      return;
+    }
+
+    throw error("LACK_OF_STRATEGY", "Given symbol needs dedicated strategy");
+  };
+}
+```
+
+### Podsumowanie
+
+Jak widać w podejściu TDD mamy gwarant tego, że nasz **refactor** kodu jest pilnowany. Robią to testy uruchamiane po każdej zmianie oraz dodatkowo **Typescript**. 
+Widać również, że nasze rozwiązanie ewolułowało i pomimo kluczowych zmian w designie **API**, stosując zasadę kroków w dalszym ciągu mogliśmy pisać kod i mieć gwarant tego, 
+że nasze zmiany nic nie psują. 
+
+W kodzie, który został napisany można usprawnić jeszcze kilka rzeczy.
+
+- Zamiast wprowadzać **symbol** można wprowadzić dodatkową flagę i stworzyć **conditional type**, który zwróci odpowiedni zakres dostępnych nazw oraz pozycji.
+- Dopisać kilka funkcji pomocniczych. 
+
+Jednak nie ma co robić tego dla sztuki. Aktualny kod jest wystarczający na nasze potrzeby, jest łatwy w zrozumieniu, przetestowany i ściśle otypowany.
