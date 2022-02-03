@@ -278,13 +278,10 @@ export class GuitarNote implements Note {
     public id: NoteId
   ) {
     this.sharpName = SHARP_NAMES[position];
-    this.bmollName = this._getHalfEnharmonizedName(this.sharpName, position);
+    this.bmollName = this._getBmollName(this.sharpName, position);
   }
 
-  private _getHalfEnharmonizedName = (
-    name: string,
-    position: NotePosition
-  ): string => {
+  private _getBmollName = (name: string, position: NotePosition): string => {
     if (!this.sharpName.includes(NoteNotationSymbol.Sharp)) {
       return name;
     }
@@ -318,7 +315,7 @@ describe("GuitarNote", () => {
     expect(new GuitarNote(11, 0, 0).sharpName).toBe("B");
   });
 
-  it("gets half enharmonized name", () => {
+  it("gets bmoll name", () => {
     expect(new GuitarNote(0, 0, 0).bmollName).toBe("C");
     expect(new GuitarNote(1, 0, 0).bmollName).toBe("Db");
     expect(new GuitarNote(3, 0, 0).bmollName).toBe("Eb");
@@ -333,4 +330,28 @@ describe("GuitarNote", () => {
 Znów zielono.
 
 ![image](https://user-images.githubusercontent.com/22937810/152338096-ba919b9d-254b-4744-bdff-4dc9b4602c6a.png)
+
+Teraz została ostatnia rzecz. Chcemy pozbyć się **magic numbers**. W tym celu najpierw zmienimy API klasy **GuitarNote**, a dokładniej konstruktor. Teraz zamiast parametru **position**, przyjmie on parametr cos, który ma 3 możliwe warianty (**Position, SharpName, BmollName)**. Ułatwi to czytanie kodu.
+
+Zmieniamy API:
+
+```ts
+// definitions
+export type NoteSymbol = NotePosition | SharpNoteName | BmollNoteName; // dodajemy
+// guitarNote.ts
+constructor(
+  public symbol: NoteSymbol, // wcześniej position: NotePosition
+  public octave: NoteOctave,
+  public id: NoteId
+) {
+  this.sharpName = SHARP_NAMES[position];
+  this.bmollName = this._getBmollName(this.sharpName, position);
+}
+```
+
+Teraz musimy znów dopisać testy, które przetestują działanie modułu dla innych parametrów startowych.
+
+```ts
+// guitarNote.test.ts
+```
 
