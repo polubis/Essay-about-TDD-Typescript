@@ -27,4 +27,20 @@ Następnie tworzymy szkielet klasy implementujący interfejs **Note**, tylko w c
 
 ```ts
 // music-core/guitarNote.ts
+export class GuitarNote implements Note {
+  name = "";
+  halfEnharmonizedName = "";
+
+  constructor(
+    public position: NotePosition,
+    public octave: NoteOctave,
+    public id: NoteId
+  ) {}
+}
+```
+
+Teraz opisy testów. Proces sobie skracam nie zawsze musze przechodzić przez cały opisany w rozdziale 1. Wraz z nabraniemzynają się dziać automatycznie.
+
+```ts
+
 ```
