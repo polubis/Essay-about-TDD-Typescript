@@ -397,7 +397,6 @@ Jednocześnie mając informacje zwortna z działających testów czy wszystko dz
 
 ![Example of TDD](https://user-images.githubusercontent.com/22937810/152313514-f98c597f-32bc-4db3-ab56-e7d8eb2adfc9.gif)
 
-
 ### 8. Jeżeli po 7 kroku testy się popsuły to wracamy do kroku 6.
 
 Testy działają więc idziemy dalej.
@@ -407,3 +406,29 @@ Testy działają więc idziemy dalej.
 U nas to nie wszystko i powinniśmy wrócić do kroku 4. Potrzebujemy zaimplementować jeszcze wiele funkcjonalności. Ich kod można zobaczyć na tym branchu:
 
 https://github.com/polubis/music-app/tree/Release-1.5/apps/jam-jam
+
+## TDD na większym przykładzie
+
+Przejdziemy przez implementacje modułu **music-core**, o którym wspominaliśmy w kroku **3. Szkielet rozwiązania**.
+
+Zaczniemy od najmniejszej składowej każdego instrumentu czyli dźwięku. Na początek modele. Cześć interfejsów przenieśliśmy z **NoteButtonComponent**, a teraz importujemy je tam z pliku **music-core/definitions.ts**
+
+```ts
+// definitions.ts
+export const POSITIONS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] as const;
+export const OCTAVES = [0, 1, 2, 3, 4, 5, 6, 7, 8] as const;
+export const SHARP_NAMES = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"] as const;
+
+export type NotePosition = typeof POSITIONS[number];
+export type SharpNoteName = typeof SHARP_NAMES[number];
+export type NoteOctave = typeof OCTAVES[number];
+
+export interface InstrumentNote {
+  position: NotePosition; // czy jest to dźwięk C...B w postaci identyfikatorow 0...11
+  octave: NoteOctave; // czy jest to oktawa 0...8
+  id: string | number; // unikalny idenyfikator dźwięku
+  name: string; // nazwa uproszczona czyli C, C#, D, D#...B
+  halfEnharmonizedName: string // nazwa, w której nazwy dźwięków z # zamieniamy w według C# -> Db lub D# -> Eb 
+}
+```
+
