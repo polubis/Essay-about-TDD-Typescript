@@ -1,6 +1,6 @@
 ## TDD na większym przykładzie
 
-Przejdziemy przez implementacje modułu **music-core**, o którym wspominaliśmy w kroku **3. Szkielet rozwiązania**.
+Przejdziemy przez implementacje modułu **music-core**, o którym wspominaliśmy we wcześniejszym rozdziale gdy rozważaliśmy nad szkieletem rozwiązania.
 
 Zaczniemy od najmniejszej składowej każdego instrumentu czyli dźwięku. Na początek modele. Cześć interfejsów przenieśliśmy z **NoteButtonComponent**, a teraz importujemy je tam z pliku **music-core/definitions.ts**
 
