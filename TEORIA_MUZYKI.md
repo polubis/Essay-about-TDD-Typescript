@@ -26,7 +26,7 @@ Tonacja to nic innego jak dźwięk startowy. Czyl **C Major** oznacza skalę w t
 
 # Akord
 
-Jest to zestaw conajmniej 3 dźwięków granych jednocześnie na instrumencie. 
+Jest to zestaw conajmniej 3 dźwięków granych jednocześnie na instrumencie. Akordy budujemy w oparciu o skale.
 
 # Relacja skal
 
@@ -42,3 +42,6 @@ Dźwięki mogą być od siebie odległę o różne wartości.
 Tutaj więcej o tym:
 https://pl.wikipedia.org/wiki/Interwa%C5%82
 
+# Harmonia
+
+Opisuje to czy dany dźwięk pasuje do innego dźwięku. Czy brzmi to dla człowieka przyjaźnie i ładnie oraz się nie gryzie.
