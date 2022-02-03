@@ -398,3 +398,12 @@ Jednocześnie mając informacje zwortna z działających testów czy wszystko dz
 ![Example of TDD](https://user-images.githubusercontent.com/22937810/152313514-f98c597f-32bc-4db3-ab56-e7d8eb2adfc9.gif)
 
 
+### 8. Jeżeli po 7 kroku testy się popsuły to wracamy do kroku 6.
+
+Testy działają więc idziemy dalej.
+
+### 9. Przejść do kroku 4 lub jeżeli to już wszystko to kończymy.
+
+U nas to nie wszystko i powinniśmy wrócić do kroku 4. Potrzebujemy zaimplementować jeszcze wiele funkcjonalności. Ich kod można zobaczyć na tym branchu:
+
+https://github.com/polubis/music-app/tree/Release-1.5/apps/jam-jam
