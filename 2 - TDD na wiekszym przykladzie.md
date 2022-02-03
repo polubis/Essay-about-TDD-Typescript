@@ -203,9 +203,134 @@ describe("getNextPosition()", () => {
 ```
 
 W dalszym ciągu jednak w aplikacji odnosimy się do **magic numbers**. Kiedy mamy na myśli jakiś dźwięk zawsze wcześniej musimy w głowie wykonać mapowanie. 
-Dźwięk C to 0, dźwięk C# to 1. Poprawmy też to.
+Dźwięk C to 0, dźwięk C# to 1. Poprawmy też to. Tutaj wprowadzimy pierwszy raz zmiany w interfejsach w momencie gdy mamy już testy. Spowoduje to tak naprawdę powrót do samego początku. Czyli najpierw zmiana w interfejsach, pózniej poprawa szkieletu klasy, później poprawka testów, a dopiero później fix implementacji.
 
 ```ts
 // definitions.ts
+export const POSITIONS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] as const;
+export const OCTAVES = [0, 1, 2, 3, 4, 5, 6, 7, 8] as const;
+export const SHARP_NAMES = [
+  "C",
+  "C#",
+  "D",
+  "D#",
+  "E",
+  "F",
+  "F#",
+  "G",
+  "G#",
+  "A",
+  "A#",
+  "B",
+] as const;
+export const BMOLL_NAMES = [
+  "C",
+  "Db",
+  "D",
+  "Eb",
+  "E",
+  "F",
+  "Gb",
+  "G",
+  "Ab",
+  "A",
+  "Bb",
+  "B",
+] as const;
 
+export type NotePosition = typeof POSITIONS[number];
+export type SharpNoteName = typeof SHARP_NAMES[number];
+export type BmollNoteName = typeof BMOLL_NAMES[number];
+export type NoteOctave = typeof OCTAVES[number];
+export enum NoteNotationSymbol {
+  Sharp = "#",
+  Bmoll = "b",
+}
+
+export type NoteId = string | number;
+export interface Note {
+  position: NotePosition;
+  octave: NoteOctave;
+  id: NoteId;
+  sharpName: string;
+  bmollName: string;
+}
+
+// guitarNote.ts
+
+import {
+  Note,
+  NotePosition,
+  NoteOctave,
+  NoteId,
+  SHARP_NAMES,
+  NoteNotationSymbol,
+} from "./definitions";
+import { getNextPosition } from "./utils";
+
+export class GuitarNote implements Note {
+  sharpName: string;
+  bmollName: string;
+
+  constructor(
+    public position: NotePosition,
+    public octave: NoteOctave,
+    public id: NoteId
+  ) {
+    this.sharpName = SHARP_NAMES[position];
+    this.bmollName = this._getHalfEnharmonizedName(this.sharpName, position);
+  }
+
+  private _getHalfEnharmonizedName = (
+    name: string,
+    position: NotePosition
+  ): string => {
+    if (!this.sharpName.includes(NoteNotationSymbol.Sharp)) {
+      return name;
+    }
+
+    return SHARP_NAMES[getNextPosition(position)] + NoteNotationSymbol.Bmoll;
+  };
+}
 ```
+
+Teraz poprawa testów, które nawiązują do starych interfejsów. 
+
+```ts
+// guitarNote.test.ts
+import { GuitarNote } from "./guitarNote";
+
+describe("GuitarNote", () => {
+  it("assigns given properties", () => {
+    const note = new GuitarNote(0, 0, 0);
+    expect(note.position).toBe(0);
+    expect(note.octave).toBe(0);
+    expect(note.id).toBe(0);
+  });
+
+  it("gets sharp name", () => {
+    expect(new GuitarNote(0, 0, 0).sharpName).toBe("C");
+    expect(new GuitarNote(1, 0, 0).sharpName).toBe("C#");
+    expect(new GuitarNote(3, 0, 0).sharpName).toBe("D#");
+    expect(new GuitarNote(6, 0, 0).sharpName).toBe("F#");
+    expect(new GuitarNote(8, 0, 0).sharpName).toBe("G#");
+    expect(new GuitarNote(10, 0, 0).sharpName).toBe("A#");
+    expect(new GuitarNote(11, 0, 0).sharpName).toBe("B");
+  });
+
+  it("gets half enharmonized name", () => {
+    expect(new GuitarNote(0, 0, 0).bmollName).toBe("C");
+    expect(new GuitarNote(1, 0, 0).bmollName).toBe("Db");
+    expect(new GuitarNote(3, 0, 0).bmollName).toBe("Eb");
+    expect(new GuitarNote(6, 0, 0).bmollName).toBe("Gb");
+    expect(new GuitarNote(8, 0, 0).bmollName).toBe("Ab");
+    expect(new GuitarNote(10, 0, 0).bmollName).toBe("Bb");
+    expect(new GuitarNote(11, 0, 0).bmollName).toBe("B");
+  });
+});
+```
+
+Znów zielono.
+
+![image](https://user-images.githubusercontent.com/22937810/152338096-ba919b9d-254b-4744-bdff-4dc9b4602c6a.png)
+
