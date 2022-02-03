@@ -4,30 +4,35 @@
 
 https://github.com/polubis/music-app/tree/Release-1.5/apps/jam-jam
 
-## Wstęp
+## Przykład z życia
 
-  Wyobraź sobie, że jesteś pracownikiem pizzeri. Mają skomplikowany proces tworzenia ciasta, jego wyrastania, pozyskiwania składników oraz ich obróbki.
-  Początkowo jesteś tylko uczniem. Patrzysz jak pizza jest przygotowywana przez zawodowców. Każdy z nich zajmuje się innym fragmentem procesu oraz dba o jego prawidłowość, który posiada następujące fazy.
+Jesteś pracownikiem pizzeri. Pizzeria ma swój proces tworzenia pizzy. Początkowo jesteś tylko uczniem. Patrzysz jak pizza jest przygotowywana przez zawodowców. Każdy z nich zajmuje się innym fragmentem procesu, który posiada następujące fazy.
   
  1. Wyrobienie ciasta oraz jego wyrost (Jaro).
  2. Przygotowanie składników (Don Vasyl).
  3. Stworzenie pizzy (Śledziu).
  
-  Każda z tych osób przeprowadza swojego rodzaju testy. Przykładowo **Śledziu** sprawdzi sprężystość ciasta podczas próby jego formowania, **Don Vasyl** sprawdzi czy składniki nie są za grubo pokrojone, a **Jaro** sprawdzi temperaturę kawałka.
+Każda z tych osób przeprowadza swojego rodzaju testy. Przykładowo **Śledziu** sprawdzi sprężystość ciasta podczas próby jego formowania, **Don Vasyl** sprawdzi czy składniki nie są za grubo pokrojone, a **Jaro** sprawdzi temperaturę kawałka.
 
-  Gdyby pominąć faze testowania może się zdarzyć, że klient dostanie złej jakości produkt. 
+Gdyby pominąć faze testowania może się zdarzyć, że klient dostanie złej jakości produkt. Cały proces kończy się pojawieniem się pizzy na talerzu klienta oraz jej spróbowaniem.
 
-  Cały proces kończy się pojawieniem się pizzy na talerzu klienta oraz jej spróbowaniem.
+Teraz wyobraź sobie kod. Pracownicy to moduły, które komunikują się ze sobą, a każdy z nich posiada inną odpowiedzialność. Czy rozsądnym jest zakładanie, że kod będzie zawsze działał? Od tego mamy testy automatyczne, które będą pełniły role pracowników pizzeri.
 
-## Przykłady testów
+## Czym jest test?
 
-  Test to nic innego jak weryfikacja czy nasz kod działa według zdefiniowanych wymagań. Czasami wymagania znamy wcześniej, a czasami dochodzimy do nich podczas pracy nad kodem.
-  
-### Testy jednostkowe
+Test to nic innego jak weryfikacja czy nasz kod działa według zdefiniowanych wymagań. Można testować manualnie / automatycznie. Standardowy podział testów w oparciu o testowany obszar to:
 
-Pod uwagę bierzemy tylko jedno konkretne zachowanie kodu. Porównując to do przykładu z początku testujemy tylko wilgotność ciasta lub tylko jego rozmiar.
+- Jednostkowe
+- Integracyjne
+- e2e
 
-1. Funkcja `sum()` powinna dodawać do siebie podane parametry i zwracać wynik. Zazwyczaj piszemy testy do gotowego już kodu.
+Istnieją jeszcze inne podziały, o tym później.
+
+## Testy jednostkowe
+
+Pod uwagę bierzemy tylko jedno konkretne zachowanie kodu. Przekładając to na nasz przykład testujemy albo wilgotność ciasta albo jego rozmiar.
+
+1. Funkcja `sum()` powinna dodawać do siebie podane parametry i zwracać wynik.
  
 ```ts
 // sum.ts
@@ -85,9 +90,11 @@ it('assigns theme', () => {
 });
 ```
 
-### Testy integracyjne
+Zauważ, że napisaliśmy 2 oddzielne testy. Każdy z nich testuje inny fragment funkcjonalności.
 
-Testujemy większy fragment funkcjonalności. Porównując do przykładu z życia testujemy po kolei _Wyrobienie ciasta oraz jego wyrost, Przygotowanie składników, Stworzenie pizzy_.
+## Testy integracyjne
+
+Testujemy większy fragment funkcjonalności. Przekładając to na nasz przykład testujemy jak zachowa się ciasto po przejściu przez proces formowania i wyrastania.
 
 ```ts
 // user.ts
@@ -141,9 +148,9 @@ it("goes through whole update procedure", async () => {
 
 Testujemy wykorzystanie modułu z walidacją w serwisie.
 
-### Testy e2e
+## Testy e2e
 
-Testujemy całość. Porównując do przykładu z życia testujemy _Stworzenie pizzy oraz jej smak_, ale nie w przyjaznym środowisku tylko już podczas ruchu - pora obiadowa.
+Testujemy całość. Przekładając to na pizzerie. Klient je pizze. Przetestował cały proces. Nie interesuje go kto robił pizze, ile wyrastało ciasto, ...itd. Jeżeli mu smakuje to wszystko jest ok. Test procesu może też później odbywać się w WC.
 
 ```ts
  it('allows user to create account', () => {
@@ -174,7 +181,7 @@ Jest to podejście, w którym najpierw powinniśmy:
 
 ![Przycisk](https://s3.amazonaws.com/mokacoding/2018-09-18-red-green-refactor.jpg)
 
-Oficjalnie tylko kroki **5,6,7** należą do **TDD**. Jednak postanowiłem umieścić je wewnątrz całego procesu developmentu, aby pokazać, w którym miejscu powinniśmy korzystać z TDD. Również powinniśmy się trzymać korków **5,6,7** wszystkie pozostałe sprawdzają się u mnie. Dla każdego może to być troche inny proces.
+Oficjalnie tylko kroki **5,6,7** należą do **TDD**. Jednak postanowiłem umieścić je wewnątrz całego procesu developmentu, aby pokazać, w którym miejscu powinniśmy korzystać z **TDD**. W **TDD** powinniśmy się trzymać korków **5,6,7** wszystkie pozostałe sprawdzają się u mnie. Dla każdego może to być troche inny proces.
 
 ## TDD w praktyce
 
