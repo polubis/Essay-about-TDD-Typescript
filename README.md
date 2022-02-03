@@ -1,5 +1,9 @@
 # Essay-about-TDD-Typescript
 
+## Kod 
+
+https://github.com/polubis/music-app/tree/Release-1.5/apps/jam-jam
+
 ## Wstęp
 
   Wyobraź sobie, że jesteś pracownikiem pizzeri. Mają skomplikowany proces tworzenia ciasta, jego wyrastania, pozyskiwania składników oraz ich obróbki.
@@ -164,7 +168,7 @@ Jest to podejście, w którym najpierw powinniśmy:
 4. Wybieramy fragment funkcjonalności - granulacja pracy.
   5. **Faza red** Stworzyć interfejsy, napisać testy, które nie przechodzą (są czerwone).
   6. **Faza green** Poprawić kod tak, aby testy, które napisaliśmy działały.
-  7. **Faza refactor** Zrobić refactor kodu.
+  7. **Faza refactor** - zrobić refactor kodu.
   8. Jeżeli po 7 kroku testy się popsuły to wracamy do kroku 6.
 9. Przejść do kroku 4 lub jeżeli to już wszystko to kończymy.
 
@@ -320,4 +324,77 @@ describe("NoteButtonComponent", () => {
   });
 });
 ```
+
+### 6. **Faza green** Poprawić kod tak, aby testy, które napisaliśmy działały.
+
+```ts
+import { NoteOctave, NotePosition } from "music-core";
+import { Button } from "antd";
+
+import css from "./NoteButtonComponent.module.less";
+
+export interface NoteButtonComponentProps {
+  className?: string;
+  position: NotePosition;
+  octave?: NoteOctave;
+  name: string;
+  singleColor?: boolean;
+  hidden?: boolean;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+}
+
+const COLORS = [
+  "#f08989",
+  "#cc9d72",
+  "#a4cc72",
+  "#72cc76",
+  "#72ccbc",
+  "#72b1cc",
+  "#729bcc",
+  "#9a72cc",
+  "#728bcc",
+  "#7f72cc",
+  "#c572cc",
+  "#cc72a8",
+] as const;
+
+const NoteButtonComponent = ({
+  className = "",
+  position,
+  name,
+  octave,
+  singleColor,
+  hidden,
+  onClick,
+}: NoteButtonComponentProps) => {
+  return (
+    <Button
+      role="button"
+      className={`${css.btn} ${className} ${hidden ? css.hidden : ""}`}
+      style={{
+        background: singleColor ? undefined : COLORS[position],
+      }}
+      type={singleColor ? "primary" : undefined}
+      data-position={position}
+      data-octave={octave}
+      onClick={onClick}
+    >
+      <span className={css.name}>{name}</span>
+      {octave !== undefined && <span className={css.octave}>{octave}</span>}
+    </Button>
+  );
+};
+
+export { NoteButtonComponent };
+```
+
+Dodaliśmy implementacje, która sprawia, że wcześniej napisane testy zaczynają być zielone.
+
+### 7. **Faza refactor** - zrobić refactor kodu.
+
+W tym kroku można modyfikować kod, wydzielać dodatkowe funkcje, komponenty dla czytelności, lepszego performance, ...itd.
+Jednocześnie mając informacje zwortna z działających testów czy wszystko działa poprawnie. Poniższej przykład:
+
+![Example of TDD](https://user-images.githubusercontent.com/22937810/152313514-f98c597f-32bc-4db3-ab56-e7d8eb2adfc9.gif)
+
 
