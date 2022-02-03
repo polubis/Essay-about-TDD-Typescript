@@ -692,7 +692,7 @@ import {
 } from "./utils";
 
 export class GuitarNote implements Note {
-  sharpName!: string;
+  sharpName!: string; // bang operator. Mówimy dla ts, że ta właściwość z pewnością będzie zainicjalizowana w konstruktorze.
   bmollName!: string;
   position!: NotePosition;
 
