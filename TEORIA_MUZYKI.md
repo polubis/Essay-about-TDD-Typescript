@@ -1,3 +1,5 @@
+PS: To jest bardzo uproszczone opracowanie
+
 # Notacja dźwięków
 
 W muzyce mamy standardowo 12 dźwięków. Każdy z nich ma inną częstotliwość.
