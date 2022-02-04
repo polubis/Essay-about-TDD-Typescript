@@ -184,7 +184,7 @@ it("throws an error for invalid model", () => {
 });
 
 it("goes through whole update procedure", async () => {
-  const VALID_USER: User = { username: "Tomasz1994", id: 0 };
+  const VALID_USER: User = { username: "Tomasz1994", id: 0 }; // MOCK
   fetch.mockResponseOnce(JSON.stringify(VALID_USER));
   const userService = new UserService();
 
@@ -216,6 +216,93 @@ Testujemy całość. Przekładając to na pizzerie. Klient je pizze. Przetestowa
  })
 ```
 
+## False negatives w testach
+
+Sytuacja, w której testy wskazują błąd, a w rzeczywistości go nie ma. Błąd jest w teście, a nie w implementacji kodu.
+
+```ts
+// Button.tsx
+import css from './Button.scss';
+
+interface ButtonProps {
+  className?: string;
+  children: ReactNode;
+}
+
+const Button = ({ className = '', children }: ButtonProps) => {
+  return (
+      <button className={`${css.btn} ${className}`}>{children}</button>
+  )
+}
+
+// Button.test.tsx
+
+// Spowoduje false negatives
+it('adds class', () => {
+    // Ten test się zrobi czerwony jeżeli dodamy 3 klasę bądź damy klasę pod warunkiem
+    const { container } = render(<Button className='my-class'>btn</Button>);
+    expect(screen.getByText(/btn/).classList.length).toBe(2);
+})
+```
+
+## False positivies
+
+Sytuacja, w której wygląda na to, że wszystko jest ok, a w rzeczywistości nie jest. Również błąd w implementacji testu. 
+
+```ts
+const Parent = () => {
+  return (
+    <>
+      <label>Labelka</label>
+      <Child />
+    </>
+  )
+}
+
+const Child = () => {
+  return (
+    <button>Labelka</button>
+  )
+}
+
+// Mamy 2x labelka tekst więc nawet jak usuniemy "Labelka" z Parent to dalej test przejdzie, a nie powinien.
+it('displays labelka tekst', () => {
+  render(<Parent />);
+  expect(screen.getByText(/Labelka/)).toBeInTheDocument()
+})
+```
+
+## Mocks = Dummies & Fakes & Stubs
+
+### Dummy 
+
+Zaspokajamy API bo i tak chcemy testować coś innego.
+
+```ts
+const renderNoteButtonComponent = (
+  props: Partial<NoteButtonComponentProps> = {}
+) => render(<NoteButtonComponent name="C" position={0} {...props} />);  
+```
+
+W testach nie istotne są **position** oraz **name** więc korzystamy z **dummy** i przekazujemy tam jakiekolwiek wartości.
+
+### Fakes
+
+Chcemy testować działanie aplikacji z w połączeniu z bazą danych. Podmieniamy prawdziwą bazę bazą in-memory z takim samym API.
+
+### Stubs
+
+Nadpisują metody w taki sposób, żeby zwracały one **hard coded values** na potrzeby testu.
+
+### Mocks
+
+To co wyżej + również mogą nadpisywać i ingerować w kolejność działań. 
+Często wszystkie te pojęcia grupuje się w jedno określenie - poprostu **Mock**.
+
+## O tym jak skrupulatne testowanie chroni developerów
+
+Wyobraź sobie duża aplikacje z brakiem jakichkolwiek testów, a teraz obok weż pod uwagę taką samą z testami jednostkowymi, które wykryją problem z konkretnym modułem, integracyjnymi które wykryją nie działający moduł oraz e2e, które otwierając okno przeglądarki wykonają za użytkownika test czy aplikacja w swoim naturalnym środowisku działa poprawnie.
+
 ## Test Driven Development
 
 Jest to podejście, w którym najpierw powinniśmy:
@@ -235,17 +322,13 @@ Oficjalnie tylko kroki **5,6,7** należą do **TDD**. Jednak postanowiłem umie�
 
 ## TDD w praktyce
 
-// Dodac inny podzial testow
-// TODO: O tym kiedy testowac ze spy i wywolaniem
-/// mocki, stuby,
-// Tylko public api test
-// O tym ze spojne testowanie nie tylo pokazuje miejsce i przyczyne, ale oszczedza czas na debjugowaniu
-// Co warto testowac i czy zawsze warto
+// TODO
+// Dodac memy
+// Zrobic rewizje dokumentu
+// Dac faq
 // Wrzucic info na temat pokrycia i co tym myslec
-// Poprawne nazewnictow
-// Testowanie szczegolow implementacyjnch
-// false negatives, false positives
 /// zrobic prezke
+// Dokonczyc apke
 
 ### 1. Napisać wymagania w dowolnej formie.
 
@@ -467,11 +550,7 @@ Proces tworzenia jednej większej znajdziesz tutaj:
 
 https://github.com/polubis/Essay-about-TDD-Typescript/blob/main/2%20-%20TDD%20na%20wiekszym%20przykladzie.md
 
-## Ekosystem testów
-
-Czyli wszystkie pojęcia, praktyki, ...itd.
-
-### Piramida testów
+## Piramida testów
 
 Jest to podejście, w którym najwięcej mamy testów jednostkowych, później integracyjnych, a na najmniej e2e. 
 
@@ -480,4 +559,52 @@ Jest to podejście, w którym najwięcej mamy testów jednostkowych, później i
 To podejście jest czasochłonne. Piszemy wiele testów. Jest również podejście, w którym piszemy najwięcej testów jednostkowych bo to one mogą wykryć dziure w systemie o wiele łatwiej niż testy jednostkowe - testujemy większy obszar.
 Takie testy częściej będą czerwone oraz wolniejsze jednak sprawdzą większa część systemu.
 
+## Testowanie publicznego API
+
+Powinniśmy starać się zawsze testować tylko publiczne API. Patrząc na przykład niżej metoda prywatna jest nie istotna z perspektywy modułu korzystającego z **UserModel**. Zazwyczaj jeżeli ktoś testuje metody czy pola prywatne jest to problem z designem kodu.
+
+```ts
+// user.ts
+interface User {
+  id: number;
+}
+
+class UserModel {
+  private _setId(id: number): void {
+    this.id = id;
+  }
+  
+  public update(user: User): void {
+    this._setId(user.id);
+  }
+}
+
+// user.test.ts
+it('updates user', () => {
+  expect(new UserModel().update({id: 0} ).id).toBe(0);
+})
+```
+
+Są jednak przypadki, że czasami trzeba to zrobić. Przykładowo podczas integracji z jakąś biblioteką.
+
+## Co warto testować?
+
+Rzeczy krytyczne dla systemu w pierwszej kolejności. Działanie autoryzacji, kluczowe aspekty funkcjonalności, logikę biznesową, zachowanie się komponentów. Pamiętamy o tym, że
+testy piszemy dla stabilności rozwiązania oraz jest to narzędzie dające nam prostą odpowiedź na pytanie: Czy coś działa? Tak/Nie. 
+
+## Czy zawsze warto testować?
+
+Oczywiście, że nie. Robimy gdy mamy na to czas oraz gdy mamy określone, niezmieniające się wymagania (TDD) oraz kod nadający się do testowania. Kod, który się nie nadaje to funkcja, która ma 200 linijek i pełno warunków brzegowych, często też zagnieżdźonych.
+
+## Testowanie szczegółów implementacyjnych
+
+Czasami nie da się inaczej. Wyobraź sobię gotową bibliotekę do wysyłania maili. Najwygodniej jest przetestować czy konkretna metoda została z niej wywołana. Nie ma możliwości testowania mechanizmu ponieważ jest on przed nami ukryty.
+
+Lub sytuacja, w której chcesz przetestować przypisanie klasy. Te testy też mają ogromną wartość poprostu mają tendencje do psucia się w przypadku zmiany implementacji. Przykładowo zmienisz implementację wyglądu z css na inline style i taki test już nie przechodzi. Daje **false negatives**.
+
+## Code coverage
+
+Przydatna rzecz jeżeli chcemy widzieć jakie fragmenty kodu brał udział w testach.
+
+![image](https://user-images.githubusercontent.com/22937810/152534321-71f55783-1545-435c-8bc1-c056665af5b8.png)
 
