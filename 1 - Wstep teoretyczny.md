@@ -326,7 +326,6 @@ Oficjalnie tylko kroki **5,6,7** należą do **TDD**. Jednak postanowiłem umie�
 // Dodac memy
 // Zrobic rewizje dokumentu
 // Dac faq
-// Wrzucic info na temat pokrycia i co tym myslec
 /// zrobic prezke
 // Dokonczyc apke
 
