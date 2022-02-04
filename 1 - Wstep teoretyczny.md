@@ -47,6 +47,13 @@ Test to nic innego jak weryfikacja czy nasz kod działa według zdefiniowanych w
 
 Istnieją jeszcze inne podziały, o tym później.
 
+## Narzędzia i technologie
+
+- **jest** - framework do testowania.
+- **react-testing-library** - libka do testowania komponentów w **React**.
+- **react-testing-library/hooks** - rozszerzenie do testowania **hooks w React**.
+- **jsdom** - symulacja prawdziwego drzewa **DOM**. **jest** z tego korzysta.
+
 ## Testy jednostkowe
 
 Pod uwagę bierzemy tylko jedno konkretne zachowanie kodu. Przekładając to na nasz przykład testujemy albo wilgotność ciasta albo jego rozmiar.
@@ -204,7 +211,6 @@ Oficjalnie tylko kroki **5,6,7** należą do **TDD**. Jednak postanowiłem umie�
 
 ## TDD w praktyce
 
-// Dzial o narzedziach i technologiach
 // Dodac inny podzial testow
 // TODO: O tym kiedy testowac ze spy i wywolaniem
 /// Arange act asset, mocki, stuby,
@@ -437,3 +443,9 @@ https://github.com/polubis/music-app/tree/Release-1.5/apps/jam-jam
 Proces tworzenia jednej większej znajdziesz tutaj:
 
 https://github.com/polubis/Essay-about-TDD-Typescript/blob/main/2%20-%20TDD%20na%20wiekszym%20przykladzie.md
+
+## Piramida testów
+
+Jest to podejście, które mówi, że najwięcej powinniśmy pisać testów jednostkowych, później integracyjnych, a na najmniej e2e. 
+
+[Piramida testów](https://projectquality.it/wp-content/uploads/2020/02/Piramida-Testo%CC%81w-Projectquality.it_-1024x640.png)
