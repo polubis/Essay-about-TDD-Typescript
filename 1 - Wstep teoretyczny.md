@@ -54,6 +54,30 @@ Istnieją jeszcze inne podziały, o tym później.
 - **react-testing-library/hooks** - rozszerzenie do testowania **hooks w React**.
 - **jsdom** - symulacja prawdziwego drzewa **DOM**. **jest** z tego korzysta.
 
+## Arrange & Act & Assert
+
+Podejście w którym staramy się rozdzielić 3 etapy (jeżeli jest taka możliwość - czasami testy są jednolinijkowe). Przygotowanie fragmentu kodu do testowania, uruchomienie testowanego kodu oraz sprawdzenie wyników.
+
+```ts
+it("goes through whole update procedure", async () => {
+  // Arrange start
+  const VALID_USER: User = { username: "Tomasz1994", id: 0 };
+  fetch.mockResponseOnce(JSON.stringify(VALID_USER));
+  const userService = new UserService();
+  // Arrange end
+
+  // Act start
+  const user = await userService.updateUser(VALID_USER);
+  // Act end
+
+  // Assert start
+  expect(fetch).toHaveBeenCalledTimes(1);
+  expect(fetch).toHaveBeenCalledWith("/user", JSON.stringify(VALID_USER));
+  expect(user).toEqual(VALID_USER);
+  // Assert end
+});
+```
+
 ## Testy jednostkowe
 
 Pod uwagę bierzemy tylko jedno konkretne zachowanie kodu. Przekładając to na nasz przykład testujemy albo wilgotność ciasta albo jego rozmiar.
@@ -213,11 +237,10 @@ Oficjalnie tylko kroki **5,6,7** należą do **TDD**. Jednak postanowiłem umie�
 
 // Dodac inny podzial testow
 // TODO: O tym kiedy testowac ze spy i wywolaniem
-/// Arange act asset, mocki, stuby,
+/// mocki, stuby,
 // Tylko public api test
 // O tym ze spojne testowanie nie tylo pokazuje miejsce i przyczyne, ale oszczedza czas na debjugowaniu
 // Co warto testowac i czy zawsze warto
-// Piramida testow
 // Wrzucic info na temat pokrycia i co tym myslec
 // Poprawne nazewnictow
 // Testowanie szczegolow implementacyjnch
@@ -444,8 +467,17 @@ Proces tworzenia jednej większej znajdziesz tutaj:
 
 https://github.com/polubis/Essay-about-TDD-Typescript/blob/main/2%20-%20TDD%20na%20wiekszym%20przykladzie.md
 
-## Piramida testów
+## Ekosystem testów
 
-Jest to podejście, które mówi, że najwięcej powinniśmy pisać testów jednostkowych, później integracyjnych, a na najmniej e2e. 
+Czyli wszystkie pojęcia, praktyki, ...itd.
 
-[Piramida testów](https://projectquality.it/wp-content/uploads/2020/02/Piramida-Testo%CC%81w-Projectquality.it_-1024x640.png)
+### Piramida testów
+
+Jest to podejście, w którym najwięcej mamy testów jednostkowych, później integracyjnych, a na najmniej e2e. 
+
+![Piramida testów](https://projectquality.it/wp-content/uploads/2020/02/Piramida-Testo%CC%81w-Projectquality.it_-1024x640.png)
+
+To podejście jest czasochłonne. Piszemy wiele testów. Jest również podejście, w którym piszemy najwięcej testów jednostkowych bo to one mogą wykryć dziure w systemie o wiele łatwiej niż testy jednostkowe - testujemy większy obszar.
+Takie testy częściej będą czerwone oraz wolniejsze jednak sprawdzą większa część systemu.
+
+
