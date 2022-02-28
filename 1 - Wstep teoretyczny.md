@@ -19,10 +19,6 @@ Design:
 
 ![image](https://user-images.githubusercontent.com/22937810/151938836-3658e938-22db-4206-8561-8d0aeec13d6f.png)
 
-## Kod 
-
-https://github.com/polubis/music-app/pull/36/files
-
 ## Przykład z życia
 
 Jesteś pracownikiem pizzeri. Pizzeria ma swój proces tworzenia pizzy. Początkowo jesteś tylko uczniem. Patrzysz jak pizza jest przygotowywana przez zawodowców. Każdy z nich zajmuje się innym fragmentem procesu, który posiada następujące fazy.
